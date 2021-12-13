@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+
+     $(document).ready(function () {
+    $("button").click(function () {
+        let word1 = $("#word1").val();
+        let word2 = $("#word2").val();
+        let fullText = document.getElementById("demoText").innerHTML;
+        let url1 = "http://localhost:8080/api/replace/" + word1 + "/" + word2;
+        $.ajax({
+            url: url1,
+            type: 'POST',
+            data: { text: fullText},
+            success: function(res) {
+                console.log(res);
+                document.getElementById("demo").innerHTML = res;
+            },
+            error: function (xhr, status, error) {
+                document.getElementById("demo").innerHTML = xhr.responseText;
+            }
+        });
+
+    });
+});
+
+
+
+
+        </script>
+    <body>
+         <p id="demoText">Testing example with given words</p>
+        word1 <input type="text" value="" id="word1"/><br/><br/>
+        word2 <input type="text" value="" id="word2"/>
+        <br/><br/>
+        <button>GetText</button>
+        <br/>
+
+        <p id="demo"></p>
+    </body>
+</html>
